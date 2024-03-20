@@ -52,7 +52,11 @@ userRouter.delete("/:userId", async function (req, res) {
 userRouter.put("/:userId", async function (req, res) {
   try {
     const { userId } = req.params; // same as getting req.params.userId
-    const { age, email } = req.body; // need to do this first before setting
+    const {
+      age,
+      email,
+      name: { first, last },
+    } = req.body; // need to do this first before setting
     const user = await User.findByIdAndUpdate(
       userId,
       //   { _id: userId },
@@ -63,7 +67,7 @@ userRouter.put("/:userId", async function (req, res) {
       // can only set age, can only set email, can set both, these will all work
       // when trying to set something else, put request will send 200 ok but
       // that other field won't actually be changed
-      { $set: { age, email } }, // same as age: age, email: email
+      { $set: { age, email, name: { first, last } } }, // same as age: age, email: email
       //{ $set: { age: age, email: email } }, // same as above!
       // cannot do e.g. ageHi:age - then it will send 200 OK however it
       // won't recognise the ageHi field in schema thus age won't be changed
@@ -75,5 +79,12 @@ userRouter.put("/:userId", async function (req, res) {
     return res.status(500).send({ error: error.message });
   }
 });
+
+// {
+//     "name": {
+//       "first": "newFirst",
+//       "last": "newLast"
+//     }
+//   }
 
 module.exports = { userRouter };
