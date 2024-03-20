@@ -11,6 +11,10 @@ const server = async function () {
   try {
     await mongoose.connect(url);
     console.log("db connected");
+    // Bind application-level middleware to an instance
+    // of the app object by using the app.use()
+    // Mount the router named userRouter as middleware at path /user
+    // If you open /user in your browser, userRouter will get called,
     app.use("/user", userRouter);
     app.listen(3000);
   } catch (error) {
