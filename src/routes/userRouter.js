@@ -11,7 +11,7 @@ const { User } = require("../models/User");
 userRouter.get("/", async function (req, res) {
   try {
     const users = await User.find({});
-    return res.send({ user: users });
+    return res.send({ users: users });
   } catch (error) {
     return res.status(500).send({ error: error.message });
   }
