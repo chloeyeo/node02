@@ -12,6 +12,16 @@ const BlogSchema = Schema(
     },
     islive: { type: Boolean, required: true, default: false },
     user: { type: Types.ObjectId, required: true, ref: "user" },
+    comments: [
+      {
+        comment: {
+          type: Types.ObjectId,
+          required: false,
+          ref: "comment",
+        },
+        user: { type: Types.ObjectId, required: true, ref: "user" },
+      },
+    ],
   },
   { timestamps: true }
 );

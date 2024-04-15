@@ -4,11 +4,12 @@ const mongoose = require("mongoose");
 const url = process.env.MONGODB_URL;
 const { userRouter } = require("./routes/userRouter");
 const { blogRouter } = require("./routes/blogRouter");
+const { commentRouter } = require("./routes/commentRouter");
 const { cors } = require("cors");
 const app = express();
 
 app.use(express.json());
-app.use(cors()); // Access-Control-Allow-Origin: *
+// app.use(cors()); // Access-Control-Allow-Origin: *
 
 /*
 // enabling CORS for some specific origins only. 
@@ -29,6 +30,7 @@ const server = async function () {
     // If you open /user in your browser, userRouter will get called,
     app.use("/user", userRouter);
     app.use("/blog", blogRouter);
+    app.use("/blog/:blogId/comment", commentRouter);
     app.listen(3003);
   } catch (error) {
     console.error(error.message);
